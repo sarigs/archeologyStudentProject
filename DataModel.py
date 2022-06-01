@@ -1,12 +1,15 @@
 class Basket:
     def __init__(self, Id):
-        self.Id = 'basket ' + str(Id)
+        self.Id = Id
 
 
 class Loci:
-    def __init__(self, Id, Basket):
-        self.Id = 'locus ' + str(Id)
-        self.basket = Basket
+    def __init__(self, Id):
+        self.Id = Id
+        self.baskets = []
+    def addBasket(self, basket):
+        self.baskets
+     
 
 
 class Sub_type:
