@@ -1,59 +1,47 @@
-import datetime
 import csv
+from DataModel import *
 
-class Shard:
-    def __init__(self,id, name):
-        self.id = id
-        self.name = name
-    def __str__(self):
-        return 'Shard:id=' + str(self.id) + ', name=' + str(self.name)
-    def serialize(self):
-        return str(id) + ',' + str(name)
-    def deserialize(self, str):
-        arr = str.split(' ,')
-        return Shard(arr[0], arr[1])
-class Bascket:
-    def __init__(self, id, datetime, type, start_height, close_height, shards):
-        self.id = id
-        self.datetime = datetime
-        self.type = type
-        self.start_height = start_height
-        self.close_height = close_height
-        self.shards = shards
-class Locus:
-    def __init__(self, id, type, height, basckets):
-        self.id = id
-        self.type = type
-        self.alt = alt
-        self.lat = lat
-        self.height = height
-        self.busckets = busckets
-class Area:
-    def __init__(self, name, id, locuses):
-        self.name = name
-        self.id = id
-        self.locuses = locuses
-class Site:
-    def __init__(self, name, id, license_id, area):
-        self.name = name
-        self.id = id
-        self.datetime = datetime
-        self.license_id = license_id
-        self.areas = areas
-
-
-def read_file(fileNamePath):
-    with open(fileNamePath, newline='') as csvfile:
-        spamreader = csv.reader(csvfile, delimiter=' ', quotechar='|')
+def readFile(fileNamePath, mySite):
+        f = open(fileNamePath, "r")
         i = 0
-        for row in spamreader:
+        for row in f:
             if i > 10:
                 break
             i += 1
             print(row)
+            if i > 1:
+                populateRow2Site(row, mySite)
 
-# def insertRowIntoObjects(row):
+def populateRow2Site(row, mySite: Site):
+    row_arr = row.split(',')
+    area_id = row_arr[1]
+    locus_id = row_arr[2]
+    basket_id = row_arr[4]
 
+    # TBD - isaac/yulia to complete
+    # ...
+    if area_id in mySite.areas:
+        area = mySite.areas[area_id]
+    else:
+        area = Area(area_id, area_id)
+        mySite.areas[area_id] = area
+
+    if locus_id in mySite.areas[area_id].loci:
+        locus = mySite.areas[area_id].loci[locus_id]
+    else:
+        locus = Locus(locus_id, locus_id)
+        mySite.areas[area_id].loci[locus_id] = locus
+
+    if basket_id in mySite.areas[area_id].loci[locus_id].baskets:
+        basket = mySite.areas[area_id].loci[locus_id].baskets[basket_id]
+    else:
+        basket = Basket(basket_id, basket_id)
+        mySite.areas[area_id].loci[locus_id].baskets[basket_id] = basket
 
 if __name__ == '__main__':
-    read_file('data.csv')
+    mySite = Site('DOR', 'DOR')
+    readFile('data.csv', mySite)
+    print(mySite)
+    for basket in mySite.areas['D2'].loci['19736'].baskets:
+        print(basket)
+    print('end')
