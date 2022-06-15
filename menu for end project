@@ -1,0 +1,15 @@
+
+#place holder is just the name of the op
+x = int(input('chose:\n 1) -place holder 1-\n 2) -place holder 2-\n 3) -place holder 3-\n 4) -place holder 4-\n'))
+def menu(x):
+    while True:
+        if x == 1:
+            #swap print hi with the def that you want
+            print('hi')
+            break
+        else:
+           x = int(
+                input('chose:\n 1) -place holder 1-\n 2) -place holder 2-\n 3) -place holder 3-\n 4) -place holder 4-\n'))
+
+
+print(menu(x))
