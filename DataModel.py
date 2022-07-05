@@ -1,4 +1,3 @@
-
 # class Shard:
 #     def __init__(self,id, name):
 #         self.id = id
@@ -38,9 +37,15 @@ class Area:
     def __str__(self):
         return 'Area:id=' + str(self.id)
 
+class Horizon:
+    def __init__(self, id, name):
+        self.name = name
+        self.id = id
+    def __str__(self):
+        return 'Horizon:id=' + str(self.id)
 
 class Basket:
-    def __init__(self, id, site: Site, area: Area, locus: Locus, type='', start_height=None, close_height=None):
+    def __init__(self, id, site: Site, area: Area, locus: Locus, horizon: Horizon, type='', start_height=None, close_height=None):
         self.id = id
         self.type = type
         self.start_height = start_height
@@ -48,10 +53,9 @@ class Basket:
         self.site = site
         self.area = area
         self.locus = locus
+        self.horizon = horizon
     def __str__(self):
         return 'Basket:id=' + str(self.id) + ';area=' + str(self.area)
-
-
 
 
 
